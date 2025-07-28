@@ -1,16 +1,16 @@
-# 🧠 Competitive Programming — Codeforces Solutions
+#  Competitive Programming Codeforces Solutions
 
 Welcome! This repository is a collection of my solutions to problems on [Codeforces](https://codeforces.com/). It's my personal log of learning, problem-solving, and constant improvement in competitive programming.
 
 ---
 
-## 🚀 What's Inside
+##  What's Inside
 
-- ✅ Solutions to **Div. 2 & Div. 3** contests
-- 💡 Practice problems from A to E (sometimes beyond!)
-- 🧪 Code in **C++** (with STL, custom macros, and templates)
-- 📁 Organized by contest or problem number
-- 🛠️ Occasionally includes brute-force or optimized variants
+-  Solutions to **Div. 2 & Div. 3** contests
+-  Practice problems from A to E (sometimes beyond!)
+-  Code in **C++** (with STL, custom macros, and templates)
+-  Organized by contest or problem number
+- 🛠 Occasionally includes brute-force or optimized variants
 
 ---
 
