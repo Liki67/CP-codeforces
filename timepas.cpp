@@ -1,17 +1,34 @@
-ll findClassy(ll L, ll R,ll classy, vector<ll>& dp) {
-    if(L>R)return classy;
-    ll num=L;int cnt=0;
-    while(num){
-        if(dp[num]!=-1) {
-            cnt+=dp[num];
-            break;
+class Solution {
+public:
+    vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {
+        vector<vector<int>>ans;
+        int i=0,k=0;
+        bool flag=true;
+        if(intervals[i][0]<newInterval[0]){
+            ans.push_back(intervals[i]);i++;
         }
-        else if(num%10 != 0) {
-            cnt++;
+        else{
+            ans.push_back(newInterval);
+            flag=false;
         }
-        num=num/10;
-    }dp[num]=cnt;
-    if(cnt<=3)classy++;
-    return findClassy(L+1,R,classy,dp);
-
-   
+        
+        while(i<intervals.size()) {
+            if(flag &&intervals[i][0]>newInterval[0])
+            {
+                if(ans[k][1]>=newInterval[0]){
+                    ans[k][1]=max(ans[k][1],newInterval[1]);
+                }
+                else{
+                    ans.push_back(newInterval);k++;flag=true;
+                }
+            }else{
+                if(ans[k][1]>=intervals[i][0]){
+                    ans[k][1]=max(ans[k][1],intervals[i][1]);
+                }else{
+                    ans.push_back(intervals[i++]);k++;
+                }
+            }
+        }
+        return ans;
+    }
+};
