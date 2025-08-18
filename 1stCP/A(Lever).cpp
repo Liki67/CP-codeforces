@@ -18,10 +18,7 @@ int main(int argc, char const *argv[])
         }
         for(int i=0;i<n;i++) {
             if(a[i]>b[i]){
-                 while(a[i]>b[i]){
-                    a[i]=a[i]-1;
-                    cnt++;
-                }
+                 cnt+=a[i]-b[i];
             }
                
         }
