@@ -23,10 +23,9 @@ int main() {
         long long k;
         cin >> a >> k;
 
-        // We perform K-1 updates
         for (long long i = 1; i < k; ++i) {
             auto [mn, mx] = minmax_digits(a);
-            if (mn == 0) break;          // sequence stops changing
+            if (mn == 0) break;         
             a += 1LL * mn * mx;
         }
         cout << a << '\n';
