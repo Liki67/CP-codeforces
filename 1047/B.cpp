@@ -32,8 +32,6 @@ void perm(vector<int> p, int n) {
             return;
         }
     }
-    // If none found, output -1 (assuming this is required; adjust if not)
-    cout << "-1\n";
 }
 
 int main() {
