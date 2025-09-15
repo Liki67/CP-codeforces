@@ -7,10 +7,16 @@ void solve() {
     cin>>n;
     string s;
     cin>>s;
-    int i=0,j=0,k=0;
-    for(int a=n-1;a>=0;a--){
-        if()
+    int zero_cnt=0;
+    for(auto c:s){
+        if(c == '0')
+            zero_cnt++;
     }
+    int mis_ones=0;
+    for(int i=0;i<zero_cnt;i++){
+        if(s[i] == '1')
+            mis_ones++;
+    }cout<<mis_ones<<endl;
 }
 int main(int argc, char const *argv[])
 {
