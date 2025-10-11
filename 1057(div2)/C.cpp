@@ -1,57 +1,71 @@
-#include<iostream>
-#include<vector>
-#include<string>
-#include<stack>
-#include<unordered_set>
-#include<queue>
+#include <iostream>
+#include <vector>
+#include <unordered_set>
+#include <algorithm>
+#include <map>
+#include <cassert>
 using namespace std;
-void solve(){
-    int n;
-    cin>>n;
-    vector<int>a(n);
-    for(int i=0;i<n;i++)cin>>a[i];
-    unordered_set<int>s;
-    int cnt=0;
-    for(int i=0;i<n;i++){
-        if(s.count(a[i])){
-            s.erase(a[i]);
-            cnt+=2*a[i];
+ 
+using ll = long long;
+ 
+const int MAXN = 200'005;
+ 
+int t;
+int n;
+int a[MAXN];
+map<int, int> cnt;
+ 
+int main() {
+    ios::sync_with_stdio(0), cin.tie(0);
+    cin >> t;
+    while (t--) {
+        cnt.clear();
+ 
+        cin >> n;
+        for (int i = 0; i < n; i++) {
+            cin >> a[i];
         }
-        else s.insert(a[i]);
-    }
-    if(cnt == 0)cout<<0<<endl;
-    else if(s.empty())cout<<cnt<<endl;
-    else{
-            vector<long long>ans(s.begin(),s.end());
-            sort(ans.begin(),ans.end());long long prev;
-            int m=ans.size()-1;
-            if(n == 3&& !ans.empty()){if(ans[m]>=cnt){cout<<0<<endl;}}
-            else{
-                int j=m;
-                while(j>=0){
-                    if(ans[j]>=cnt)j--;
-                    else{
-                        cnt+=ans[j];
-                        prev=ans[j];break;
-                    }
-                }j=m;
-                while(j>=0){
-                    if(ans[j]>=cnt ||ans[j] == prev)j--;
-                    else {
-                        cnt+=ans[j];break;
-                    }
-                }cout<<cnt<<endl;
+        for (int i = 0; i < n; i++) {
+            cnt[a[i]]++;
+        }
+ 
+        ll base = 0;
+        vector<int> odd, even;
+        for (auto [x, c] : cnt) {
+            base += (ll)x * (c / 2);
+            if (c % 2 == 1) {
+                odd.push_back(x);
+            } else if (c >= 2) {
+                even.push_back(x);
             }
-            
         }
-    }
-
-int main(int argc, char const *argv[])
-{
-    int t;
-    cin>>t;
-    while(t--) {
-        solve();
+ 
+        if (base == 0) {
+            cout << 0 << '\n';
+            continue;
+        }
+ 
+        ll ans = 0;
+        for (int x : odd) {
+            if (2 * base > x) {
+                ans = max(ans, 2 * base + x);
+            }
+        }
+ 
+        assert(is_sorted(odd.begin(), odd.end()));
+        for (int i = 1; i < (int)odd.size(); i++) {
+            if (odd[i - 1] + 2 * base > odd[i]) {
+                ans = max(ans, odd[i - 1] + 2 * base + odd[i]);
+            }
+        }
+ 
+        for (int x : even) {
+            if (base - x > 0) {
+                ans = max(ans, 2 * base);
+            }
+        }
+ 
+        cout << ans << '\n';
     }
     return 0;
 }

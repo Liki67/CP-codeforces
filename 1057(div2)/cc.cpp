@@ -27,35 +27,28 @@ void solve() {
     }
     // Convert unpaired sticks to vector and sort
     vector<long long> unpaired(s.begin(), s.end());
-    sort(unpaired.begin(), unpaired.end());
-    if(n == 3 ){
-        if(cnt > unpaired[0]){
-            cnt+=unpaired[0];cout<<cnt<<endl;return;
-        }else{
-            cout<<0<<endl;
-        }
-        return;
-    }
+    
     
 
-    int m=unpaired.size()-1;
-    int j=m;long long prev=0;
-    while(j>=0){
-        if(unpaired[j]>=cnt){
-            j--;
-        }else{
-            cnt+=unpaired[j];prev=unpaired[j];break;
+    long long m=unpaired.size();
+    long long ans=0;
+
+    for (int x : unpaired) {
+            if (cnt > x) {
+                ans = max(ans, cnt + x);
+            }
         }
-    }j=m;
-    if(prev!=0){
-        while(j>=0){
-        if(unpaired[j]>=cnt || unpaired[j] == prev){
-            j--;
-        }else{
-            cnt+=unpaired[j];break;
+    for(int j=1;j<(int)unpaired.size();j++){
+        if(unpaired[j-1]+cnt>unpaired[j]){
+            ans=max(ans,cnt+unpaired[j-1]+unpaired[j]);
+        }
+        }
+    for(auto it:s){
+        if(cnt/2-it>0){
+            ans=max(ans,cnt+it);
         }
     }
-    }cout<<cnt<<endl;
+    cout<<ans<<endl;
     
 }
 
