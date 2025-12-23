@@ -1,67 +1,52 @@
 #include <iostream>
-#include <vector>
-#include <string>
 #include <algorithm>
-
-
+#include <cmath>
 
 using namespace std;
 
-long long get_max_v(long long lim, long long nn) {
-    long long res = 0;
-    for (int p = 31; p >= 0; p--) {
-        long long bt = 1LL << p;
-        if ((nn & bt) == 0) continue;
-        if (res + bt <= lim) {
-            res += bt;
-        }
+bool isPowerOfTwo(long long n) {
+    if((n & (n-1)) == 0)return true;
+    return false;
+}
+void solve() {
+    long long n, k;
+    cin >> n >> k;
+    if (k & 1) {
+        for (int i = 0; i < k; i++) cout << n << " ";
+        cout << "\n";
+    } else {
+
+            for (int i = 0; i < k - 2; i++) {
+                cout << n << " ";
+            }
+
+            if (isPowerOfTwo(n)) {
+                
+                cout << n << " " << 0 << "\n";
+            } else {
+                long long a=n,b=0,max=0;
+                for( long long x=n-1;x>n/2;x--){
+                    if(x+(a^x) > max){
+                        b=a^x;
+                        a=x;
+                        max=a+b;
+                    } if(isPowerOfTwo(x)){
+                        break;
+                    }
+                }
+
+                cout << a << " " << b << "\n";
+            }
+        
+
+        
     }
-    return res;
 }
 
 int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
-    int t;
-    cin >> t;
-    for (int test = 0; test < t; test++) {
-        long long n;
-        int k;
-        cin >> n >> k;
-        if (k % 2 == 1) {
-            for (int i = 0; i < k; i++) {
-                cout << n << " ";
-            }
-            cout << "\n";
-            continue;
-        }
-        // even k
-        vector<long long> freev;
-        for (int p = 31; p >= 0; p--) {
-            long long bt = 1LL << p;
-            if ((n & bt) == 0) {
-                freev.push_back(bt);
-            }
-        }
-        long long m = 0;
-        for (auto bt : freev) {
-            long long nm = m + bt;
-            if (2LL * nm > n) continue;
-            long long L = nm;
-            long long R = n - nm;
-            long long mv = get_max_v(R, n);
-            if (mv >= L) {
-                m = nm;
-            }
-        }
-        long long R = n - m;
-        long long vv = get_max_v(R, n);
-        long long aa = m + vv;
-        long long bb = m + n - vv;
-        for (int i = 0; i < k - 2; i++) {
-            cout << n << " ";
-        }
-        cout << aa << " " << bb << "\n";
-    }
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    int t; cin >> t;
+    while (t--) solve();
     return 0;
 }
